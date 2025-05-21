@@ -4,25 +4,35 @@
  */
 package com.mycompany.tubes_pbo;
 
-/**
- *
- * @author user
- */
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import java.util.ArrayList;
 class ContentService {
     private List<Content> contents;
 
+    // Constructor tanpa parameter (default)
     public ContentService() {
         contents = new ArrayList<>();
     }
 
+    // ✅ Constructor dengan parameter List<Content>
+    public ContentService(List<Content> contents) {
+        this.contents = contents;
+    }
+
     public void addContent(Content content) {
         contents.add(content);
+    }
+
+    // ✅ Getter untuk contents
+    public List<Content> getContents() {
+        return contents;
+    }
+
+    // ✅ Setter untuk contents
+    public void setContents(List<Content> contents) {
+        this.contents = contents;
     }
 
     public List<Content> searchContent(String keyword) {
@@ -36,7 +46,7 @@ class ContentService {
                 .filter(c -> c.genres.contains(genre))
                 .collect(Collectors.toList());
     }
-    
+
     public List<Content> getTopRated() {
         float maxAvgRating = contents.stream()
                 .map(ContentService::calculateAverageRating)
@@ -69,5 +79,4 @@ class ContentService {
         }
         return total / content.reviews.size();
     }
-
 }
